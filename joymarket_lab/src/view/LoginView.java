@@ -24,13 +24,13 @@ public class LoginView {
 
         txtEmail = new TextField();
         txtEmail.setPromptText("Email");
-        txtEmail.setStyle("-fx-text-fill: white; -fx-control-inner-background: #2b2b2b");
-        txtEmail.setPrefWidth(200);
+        txtEmail.setStyle(fieldStyle);
+        txtEmail.setPrefWidth(fieldWidth);
 
         txtPassword = new PasswordField();
         txtPassword.setPromptText("Password");
-        txtPassword.setStyle("-fx-text-fill: white; -fx-control-inner-background: #2b2b2b");
-        txtPassword.setPrefWidth(200);
+        txtPassword.setStyle(fieldStyle);
+        txtPassword.setPrefWidth(fieldWidth);
 
         btnLogin = new Button("Login");
         btnLogin.setStyle("-fx-background-color: #3B82F6; -fx-text-fill: white;");
