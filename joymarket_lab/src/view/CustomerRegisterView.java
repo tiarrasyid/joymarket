@@ -1,7 +1,6 @@
 package view;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -19,74 +18,82 @@ public class CustomerRegisterView {
     private ComboBox<String> cbGender;
     private Button btnRegister;
     private Button btnBackToLogin;
-
+    
+    private final String fieldStyle = "-fx-text-fill: white; -fx-control-inner-background: #2b2b2b";
+    private final int fieldWidth = 220;
+    
     public void start(Stage stage) {
 
         Label title = new Label("Customer Registration");
-        title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white");
+        GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
 
-        txtCustomerId = new TextField();
-        txtCustomerId.setPromptText("Customer ID"); 
-        txtCustomerId.setDisable(true); 
-        txtCustomerId.setStyle("-fx-opacity: 0.8;");
-
-        txtFullName = new TextField();
-        txtFullName.setPromptText("Full Name");
-
-        txtEmail = new TextField();
-        txtEmail.setPromptText("Email (example@gmail.com)");
-
-        txtPassword = new PasswordField();
-        txtPassword.setPromptText("Password");
-
-        txtConfirmPassword = new PasswordField();
-        txtConfirmPassword.setPromptText("Confirm Password");
-
-        txtPhone = new TextField();
-        txtPhone.setPromptText("Phone Number");
-
+        
+        // field
+        txtCustomerId = createTextField("Customer ID");
+        txtCustomerId.setDisable(true);
+        txtCustomerId.setStyle(fieldStyle + "; -fx-opacity: 0.8;");
+        
+        txtFullName = createTextField("Full Name");
+        
+        txtEmail = createTextField("Email (blabla@example.co)");
+        
+        txtPassword = createPasswordField("Password");
+        
+        txtConfirmPassword = createPasswordField("Confirm Password");
+        
+        txtPhone = createTextField("Phone Number");
+        	
         txtAddress = new TextArea();
         txtAddress.setPromptText("Address");
         txtAddress.setPrefRowCount(3);
-
+        txtAddress.setStyle(fieldStyle);
+        txtAddress.setPrefWidth(fieldWidth);
+        
         cbGender = new ComboBox<>();
         cbGender.getItems().addAll("Male", "Female", "Other");
         cbGender.setPromptText("Select gender");
-
+        cbGender.setStyle(fieldStyle);
+        cbGender.setPrefWidth(fieldWidth);
+        
+        // button
         btnRegister = new Button("Register");
-        btnRegister.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+        btnRegister.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white");
 
         btnBackToLogin = new Button("Back to Login");
+        btnBackToLogin.setStyle("-fx-background-color: white; -fx-text-fill: #3B82F6;");
 
         GridPane layout = new GridPane();
-        layout.setPadding(new Insets(20));
-        layout.setVgap(10);
+        layout.setPadding(new Insets(25));
+        layout.setVgap(12);
         layout.setHgap(10);
         layout.setAlignment(Pos.CENTER);
+        layout.setStyle("-fx-background-color: #1e1e1e");
 
         layout.add(title, 0, 0, 2, 1);
-        layout.add(new Label("Customer ID:"), 0, 1);
+
+        layout.add(createLabel("Customer ID:"), 0, 1);
         layout.add(txtCustomerId, 1, 1);
 
-        layout.add(new Label("Full Name:"), 0, 2);
+        layout.add(createLabel("Full Name:"), 0, 2);
         layout.add(txtFullName, 1, 2);
 
-        layout.add(new Label("Email:"), 0, 3);
+        layout.add(createLabel("Email:"), 0, 3);
         layout.add(txtEmail, 1, 3);
 
-        layout.add(new Label("Password:"), 0, 4);
+        layout.add(createLabel("Password:"), 0, 4);
         layout.add(txtPassword, 1, 4);
 
-        layout.add(new Label("Confirm Password:"), 0, 5);
+        layout.add(createLabel("Confirm Password:"), 0, 5);
         layout.add(txtConfirmPassword, 1, 5);
 
-        layout.add(new Label("Phone:"), 0, 6);
+        layout.add(createLabel("Phone:"), 0, 6);
         layout.add(txtPhone, 1, 6);
 
-        layout.add(new Label("Address:"), 0, 7);
+        layout.add(createLabel("Address:"), 0, 7);
         layout.add(txtAddress, 1, 7);
 
-        layout.add(new Label("Gender:"), 0, 8);
+        layout.add(createLabel("Gender:"), 0, 8);
         layout.add(cbGender, 1, 8);
 
         layout.add(btnRegister, 1, 9);
@@ -94,9 +101,32 @@ public class CustomerRegisterView {
 
         Scene scene = new Scene(layout, 450, 600);
         stage.setScene(scene);
-        stage.setTitle("Customer Register");
+        stage.setTitle("Customer Register Page");
         stage.show();
     }
+    
+    private TextField createTextField(String placeholder) {
+    	TextField tf = new TextField();
+    	tf.setPromptText(placeholder);
+    	tf.setStyle(fieldStyle);
+    	tf.setPrefWidth(fieldWidth);
+    	return tf;
+    }
+    
+    private PasswordField createPasswordField(String placeholder) {
+    	PasswordField pf = new PasswordField();
+    	pf.setPromptText(placeholder);
+    	pf.setStyle(fieldStyle);
+    	pf.setPrefWidth(fieldWidth);
+    	return pf;
+    }
+    
+    private Label createLabel(String text) {
+    	Label label = new Label(text);
+    	label.setStyle("-fx-text-fill: white;");
+    	return label;
+    }
+   
 
     public TextField getTxtCustomerId() { return txtCustomerId; }
     public TextField getTxtFullName() { return txtFullName; }

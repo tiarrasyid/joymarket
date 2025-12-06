@@ -12,6 +12,9 @@ public class LoginView {
     private PasswordField txtPassword;
     private Button btnLogin;
     private Button btnToRegister;
+    
+    private final String fieldStyle = "-fx-text-fill: white; -fx-control-inner-background: #2b2b2b";
+    private final int fieldWidth = 200;
 
     public void start(Stage stage) {
 
