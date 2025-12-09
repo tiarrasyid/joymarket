@@ -35,26 +35,16 @@ public class CustomerTopUpView{
         btnTopup = new Button("Top Up");
         btnTopup.setPrefWidth(200);
         btnTopup.setStyle(
-            "-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 8;"
+            "-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10 20;"
         );
-        btnTopup.setOnMouseEntered(e -> btnTopup.setStyle(
-            "-fx-background-color: #5592ff; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 8;"
-        ));
-        btnTopup.setOnMouseExited(e -> btnTopup.setStyle(
-            "-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 8;"
-        ));
+
 
         btnBack = new Button("Back to Menu");
         btnBack.setPrefWidth(200);
         btnBack.setStyle(
-            "-fx-background-color: #ffffff; -fx-text-fill: #3b82f6; -fx-font-size: 14px; -fx-background-radius: 8;"
+            "-fx-background-color: #ffffff; -fx-text-fill: #3b82f6; -fx-background-radius: 8; -fx-padding: 10 20;"
         );
-        btnBack.setOnMouseEntered(e -> btnBack.setStyle(
-            "-fx-background-color: #e8e8e8; -fx-text-fill: #3b82f6; -fx-font-size: 14px; -fx-background-radius: 8;"
-        ));
-        btnBack.setOnMouseExited(e -> btnBack.setStyle(
-            "-fx-background-color: #ffffff; -fx-text-fill: #3b82f6; -fx-font-size: 14px; -fx-background-radius: 8;"
-        ));    
+  
         
         
         //layout
@@ -78,7 +68,7 @@ public class CustomerTopUpView{
         layout.add(btnTopup, 1, row++);
         layout.add(btnBack, 1, row++);
         
-        Scene scene = new Scene(layout, 450, 420);
+        Scene scene = new Scene(layout, 500, 400);
         stage.setScene(scene);
         stage.setTitle("Top Up Balance");
         stage.show();

@@ -58,10 +58,12 @@ public class CustomerRegisterView {
         
         // button
         btnRegister = new Button("Register");
-        btnRegister.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white");
+        btnRegister.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 8;");
 
         btnBackToLogin = new Button("Back to Login");
-        btnBackToLogin.setStyle("-fx-background-color: white; -fx-text-fill: #3B82F6;");
+        btnBackToLogin.setStyle("-fx-background-color: white; -fx-text-fill: #3B82F6; -fx-padding: 10 20; -fx-background-radius: 8;");
+        
+     
 
         GridPane layout = new GridPane();
         layout.setPadding(new Insets(25));
@@ -99,7 +101,7 @@ public class CustomerRegisterView {
         layout.add(btnRegister, 1, 9);
         layout.add(btnBackToLogin, 1, 10);
 
-        Scene scene = new Scene(layout, 450, 600);
+        Scene scene = new Scene(layout, 500, 400);
         stage.setScene(scene);
         stage.setTitle("Customer Register Page");
         stage.show();

@@ -33,10 +33,10 @@ public class LoginView {
         txtPassword.setPrefWidth(fieldWidth);
 
         btnLogin = new Button("Login");
-        btnLogin.setStyle("-fx-background-color: #3B82F6; -fx-text-fill: white;");
+        btnLogin.setStyle("-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-padding: 10 20;");
 
         btnToRegister = new Button("Register");
-        btnToRegister.setStyle("-fx-background-color: white; -fx-text-fill: #3B82F6");
+        btnToRegister.setStyle("-fx-background-color: white; -fx-text-fill: #3B82F6; -fx-padding: 10 20;");
 
         GridPane layout = new GridPane();
         layout.setStyle("-fx-background-color: #1e1e1e");
@@ -64,7 +64,7 @@ public class LoginView {
         layout.add(btnLogin, 1, 3);
         layout.add(btnToRegister, 1, 4);
 
-        Scene scene = new Scene(layout, 400, 350);
+        Scene scene = new Scene(layout, 500, 400);
         stage.setScene(scene);
         stage.setTitle("Login Page");
         stage.show();
