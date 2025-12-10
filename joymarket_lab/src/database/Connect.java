@@ -24,25 +24,28 @@ public class Connect {
     }
 
     public static Connect getInstance() {
-        if (instance == null) return new Connect();
+        if (instance == null) instance = new Connect();
         return instance;
     }
 
+    // untuk melakukan READ data
     public ResultSet execQuery(String query) {
         try {
-            st.executeQuery(query);
-            return st.getResultSet();
+            return st.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public void execUpdate(String query) {
+    // untuk melakukan INSERT/UPDATE/DELETE data
+    public boolean execUpdate(String query) {
         try {
             st.executeUpdate(query);
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }
