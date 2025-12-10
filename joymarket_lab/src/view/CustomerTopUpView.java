@@ -1,5 +1,7 @@
 package view;
 
+import java.text.ParseException;
+
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -39,7 +41,7 @@ public class CustomerTopUpView{
         );
 
 
-        btnBack = new Button("Back to Menu");
+        btnBack = new Button("Back");
         btnBack.setPrefWidth(200);
         btnBack.setStyle(
             "-fx-background-color: #ffffff; -fx-text-fill: #3b82f6; -fx-background-radius: 8; -fx-padding: 10 20;"
@@ -89,10 +91,16 @@ public class CustomerTopUpView{
 		return label;
 	}
 	
+	String amountText = txtAmount.getText();
+	int amount = Integer.parseInt(amountText);
 	
 	// buat cek apakah amount > 10000
-	public String validateAmount() {
-		return "";
+	public String validateAmount(int amount) {
+		if(amount < 10000) {
+			return "Please input amount greater than 10.000";
+		}
+		
+		return "Success";
 	}
 	
     public TextField getTxtAmount() { return txtAmount; }

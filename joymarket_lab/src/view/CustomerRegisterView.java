@@ -101,7 +101,7 @@ public class CustomerRegisterView {
         layout.add(btnRegister, 1, 9);
         layout.add(btnBackToLogin, 1, 10);
 
-        Scene scene = new Scene(layout, 500, 400);
+        Scene scene = new Scene(layout, 650, 600);
         stage.setScene(scene);
         stage.setTitle("Customer Register Page");
         stage.show();
