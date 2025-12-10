@@ -8,9 +8,10 @@ import javafx.scene.control.Control;
 import javafx.stage.Stage;
 import model.Customer;
 import model.User;
+import view.AdminMenuView; // Import Menu Admin
 import view.CustomerRegisterView;
 import view.LoginView;
-import view.MainMenuView;
+import view.MainMenuView; // Import Menu Customer
 
 public class LoginController {
     private Stage stage;
@@ -24,7 +25,7 @@ public class LoginController {
         this.stage = stage;
         this.loginView = loginView;
         this.registerView = registerView;
-        customers = cDAO.getAll();
+        this.customers = cDAO.getAll(); 
         initAction();
     }
 
@@ -32,14 +33,12 @@ public class LoginController {
         if (loginView != null) {
             loginView.getBtnLogin().setOnAction(e -> handleLogin());
             loginView.getBtnToRegister().setOnAction(e -> {
-                // System.out.println("Berhasil pindah ke page register");
                 CustomerRegisterView registView = new CustomerRegisterView();
                 registView.start(stage);
             });
         } else {
             registerView.getBtnRegister().setOnAction(e -> handleRegister());
             registerView.getBtnBackToLogin().setOnAction(e -> {
-                // System.out.println("Berhasil kembali ke login");
                 LoginView logView = new LoginView();
                 logView.start(stage);
             });
@@ -56,9 +55,23 @@ public class LoginController {
             return;
         }
 
-        System.out.println("Login Successfully");
-        MainMenuView mainMenuView = new MainMenuView();
-        mainMenuView.start(stage, user);
+        System.out.println("Login Successfully as " + user.getUserRole());
+
+        // --- ROLE BASED NAVIGATION ---
+        if (user.getUserRole().equalsIgnoreCase("Admin")) {
+            // Jika Admin, buka menu Admin
+            AdminMenuView adminMenu = new AdminMenuView();
+            adminMenu.start(stage, user);
+            
+        } else if (user.getUserRole().equalsIgnoreCase("Customer")) {
+            // Jika Customer, buka menu Customer
+            MainMenuView customerMenu = new MainMenuView();
+            customerMenu.start(stage, user);
+            
+        } else if (user.getUserRole().equalsIgnoreCase("Courier")) {
+        	view.CourierMenuView courierMenu = new view.CourierMenuView();
+            courierMenu.start(stage, user);
+        }
     }
 
     private void handleRegister() {
@@ -78,6 +91,7 @@ public class LoginController {
         int index = customers.size() + 1;
         Customer newCustomer = new Customer(String.format("CS%03d", index), fullNameString, emailString, passwordString,
                 gendeString, addressString, phoneString, 0);
+        
         if (cDAO.insertCustomer(newCustomer)) {
             System.out.println("Register Successfully");
             MainMenuView user = new MainMenuView();
@@ -87,6 +101,16 @@ public class LoginController {
 
     private boolean validationRegisterInput(String fullNameString, String emailString, String passwordString, String confirmPasswordString, String phoneString, String addressString, String gendeString, ObservableList<Customer> customers) {
         boolean emailIsExist = customers.stream().anyMatch(c -> c.getUserEmail().equalsIgnoreCase(emailString));
+
+        // --- VALIDASI MANUAL PENGGANTI REGEX (Sesuai Soal) ---
+        boolean isNumeric = true;
+        for (char c : phoneString.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                isNumeric = false;
+                break;
+            }
+        }
+        // -----------------------------------------------------
 
         if (fullNameString.isEmpty() || fullNameString.length() < 1) {
             errorAlert("Masukan nama", registerView.getTxtFullName());
@@ -103,8 +127,8 @@ public class LoginController {
                     registerView.getTxtPassword());
             return false;
         } else if (phoneString.isEmpty() || phoneString.length() < 10 || phoneString.length() > 13
-                || !phoneString.matches("\\d+")) {
-            errorAlert("Format telepon : 10-13 digit, numeric", registerView.getTxtPhone());
+                || !isNumeric) { // Cek numerik manual
+            errorAlert("Format telepon : 10-13 digit, numeric only", registerView.getTxtPhone());
             return false;
         } else if (addressString.isEmpty()) {
             errorAlert("Masukan alamat", registerView.getTxtAddress());
@@ -131,6 +155,9 @@ public class LoginController {
                                     .findFirst()
                                     .orElse(null);
 
+        // Logic login juga berlaku untuk Admin/Courier karena mereka ada di tabel MsUser yang sama
+        // (Diasumsikan CustomerDAO.getAll() mengambil semua user dari MsUser)
+        
         if (existingCustomer == null) {
             errorAlert("Akun tidak ditemukan", loginView.getTxtEmail());
             return null;

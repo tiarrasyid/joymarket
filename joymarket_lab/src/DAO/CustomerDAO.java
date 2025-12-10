@@ -14,25 +14,30 @@ public class CustomerDAO {
     ResultSet rs;
 
     public ObservableList<Customer> getAll() {
-
         ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-        String query = "SELECT * FROM `MsUser` WHERE `UserRole` = 'Customer'";
+        // REVISI: Hapus "WHERE UserRole = 'Customer'" agar Admin & Kurir juga terambil
+        String query = "SELECT * FROM `MsUser`";
 
         rs = db.execQuery(query);
 
         try {
             while (rs.next()) {
-                customers.add(new Customer(
+                Customer c = new Customer(
                     rs.getString("UserID"),
                     rs.getString("UserName"),
-                    rs.getString("UserEmail"),
+                    rs.getString("UserEmail"), // Pastikan email di DB nanti sudah @gmail.com
                     rs.getString("UserPassword"),
                     rs.getString("UserGender"),
                     rs.getString("UserAddress"),
                     rs.getString("UserPhone"),
                     rs.getDouble("UserBalance")
-                ));
+                );
+                
+                // PENTING: Set Role agar LoginController bisa membedakan Admin/Customer/Courier
+                c.setUserRole(rs.getString("UserRole")); 
+                
+                customers.add(c);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,10 +53,11 @@ public class CustomerDAO {
 
         try {
             if (rs.next()) {
-                return new Customer(rs.getString("UserID"), rs.getString("UserName"), rs.getString("UserEmail"), rs.getString("UserPassword"), rs.getString("UserGender"), rs.getString("UserAddress"), rs.getString("UserPhone"), rs.getDouble("UserBalance"));
+                Customer c = new Customer(rs.getString("UserID"), rs.getString("UserName"), rs.getString("UserEmail"), rs.getString("UserPassword"), rs.getString("UserGender"), rs.getString("UserAddress"), rs.getString("UserPhone"), rs.getDouble("UserBalance"));
+                c.setUserRole(rs.getString("UserRole"));
+                return c;
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -63,6 +69,48 @@ public class CustomerDAO {
         + "VALUE" + "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', 'Customer')",
          customer.getUserId(), customer.getUserName(), customer.getUserEmail(), customer.getUserPassword(), customer.getUserGender(), customer.getUserAddress(), customer.getUserPhone(), customer.getUserBalance());
     
+        return db.execUpdate(query);
+    }
+    
+    public boolean updateUserBalance(String userId, double amount) {
+        // Query untuk menambah saldo yang sudah ada
+        String query = String.format(Locale.US, 
+            "UPDATE `MsUser` SET `UserBalance` = `UserBalance` + %f WHERE `UserID` = '%s'", 
+            amount, userId);
+        
+        return db.execUpdate(query);
+    }
+    
+    // Ambil semua user yang role-nya COURIER
+    public ObservableList<Customer> getAllCouriers() {
+        ObservableList<Customer> couriers = FXCollections.observableArrayList();
+        String query = "SELECT * FROM MsUser WHERE UserRole = 'Courier'";
+        ResultSet rs = db.execQuery(query);
+        try {
+            while (rs != null && rs.next()) {
+                Customer c = new Customer(
+                    rs.getString("UserID"),
+                    rs.getString("UserName"),
+                    rs.getString("UserEmail"),
+                    rs.getString("UserPassword"),
+                    rs.getString("UserGender"),
+                    rs.getString("UserAddress"),
+                    rs.getString("UserPhone"),
+                    rs.getDouble("UserBalance")
+                );
+                c.setUserRole("Courier"); // Set role manual atau ambil dari DB
+                couriers.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return couriers;
+    }
+    
+    // UPDATE PROFILE USER (Nama, Alamat, Telepon)
+    public boolean updateProfile(String userId, String newName, String newAddress, String newPhone) {
+        String query = String.format("UPDATE MsUser SET UserName = '%s', UserAddress = '%s', UserPhone = '%s' WHERE UserID = '%s'", 
+            newName, newAddress, newPhone, userId);
         return db.execUpdate(query);
     }
 }
