@@ -1,5 +1,6 @@
 package view;
 
+import controllers.LoginController;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -36,7 +37,7 @@ public class CustomerRegisterView {
         
         txtFullName = createTextField("Full Name");
         
-        txtEmail = createTextField("Email (blabla@example.co)");
+        txtEmail = createTextField("Email (example@gmail.com)");
         
         txtPassword = createPasswordField("Password");
         
@@ -100,6 +101,7 @@ public class CustomerRegisterView {
         layout.add(btnBackToLogin, 1, 10);
 
         Scene scene = new Scene(layout, 450, 600);
+        new LoginController(stage, null, this);
         stage.setScene(scene);
         stage.setTitle("Customer Register Page");
         stage.show();
