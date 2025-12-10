@@ -27,7 +27,7 @@ public class CustomerEditProfileView {
         title.setStyle("-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;");
         GridPane.setHalignment(title, HPos.CENTER);
 
-        Label subtitle = new Label("Update your personal information");
+        Label subtitle = new Label("Ganti informasi personal kamu");
         subtitle.setStyle("-fx-text-fill: #cfcfcf; -fx-font-size: 12px;");
         GridPane.setHalignment(subtitle, HPos.CENTER);
 

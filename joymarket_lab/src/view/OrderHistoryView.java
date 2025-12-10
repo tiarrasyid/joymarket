@@ -13,21 +13,16 @@ public class OrderHistoryView {
 
     public void start(Stage stage) {
 
-        // Title
+
         Label title = new Label("Order History");
         title.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 22px");
         GridPane.setHalignment(title, HPos.CENTER);
 
-        Label subtitle = new Label("Riwayat pesanan terbaru Anda");
-        subtitle.setStyle("-fx-text-fill: #cfcfcf; -fx-font-size: 12px;");
-        GridPane.setHalignment(subtitle, HPos.CENTER);
-
-        // Container for orders
         orderListContainer = new VBox(12);
         orderListContainer.setPadding(new Insets(10));
         orderListContainer.setAlignment(Pos.TOP_LEFT);
 
-        // Sample order items
+
         orderListContainer.getChildren().add(createOrderItem(
                 "test", "test", "Product 1", 125000, 10, "--"
         ));
@@ -36,7 +31,6 @@ public class OrderHistoryView {
                 "test", "test", "Product 2", 99000, 5, "--"
         ));
 
-        // Back Button (centered)
         btnBack = new Button("Back");
         btnBack.setPrefWidth(200);
         btnBack.setStyle(
@@ -45,7 +39,7 @@ public class OrderHistoryView {
         );
         GridPane.setHalignment(btnBack, HPos.CENTER);
 
-        // Layout
+
         GridPane layout = new GridPane();
         layout.setPadding(new Insets(25));
         layout.setVgap(15);
@@ -55,11 +49,9 @@ public class OrderHistoryView {
 
         int row = 0;
         layout.add(title, 0, row++, 2, 1);
-        layout.add(subtitle, 0, row++, 2, 1);
 
         layout.add(orderListContainer, 0, row++, 2, 1);
 
-        // Back button centered
         layout.add(btnBack, 0, row++, 2, 1);
 
         Scene scene = new Scene(layout, 650, 600);

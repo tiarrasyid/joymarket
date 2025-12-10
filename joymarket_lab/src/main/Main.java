@@ -14,7 +14,7 @@ public class Main extends Application{
 
 		// TODO Auto-generated constructor stub
 		public void start(Stage stage){
-			OrderHistoryView test = new OrderHistoryView();
+			CartCheckoutView test = new CartCheckoutView();
 			test.start(stage);
 		}
 	

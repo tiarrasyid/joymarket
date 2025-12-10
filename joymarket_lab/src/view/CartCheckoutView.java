@@ -6,6 +6,7 @@ import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CartCheckoutView {
@@ -45,8 +46,8 @@ public class CartCheckoutView {
     private final int fieldWidth = 220;
 
     public CartCheckoutView() {
-        cart.put("Book A", new CartItem("Product 1", 432434, 1));
-        cart.put("Book B", new CartItem("Product 2", 324343, 2));
+        cart.put("Produk 1", new CartItem("Product 1", 432434, 1));
+        cart.put("Produk 2", new CartItem("Product 2", 324343, 2));
 
         promoDB.put("DISKON10", 10);
         promoDB.put("HEMAT20", 20);
@@ -84,7 +85,7 @@ public class CartCheckoutView {
 
         btnBack = new Button("Back to Menu");
         btnBack.setPrefWidth(200);
-        btnBack.setStyle("-fx-background-color: white; -fx-text-fill: #3b82f6; -fx-background-radius: 8; -fx-padding:10 20");
+        btnBack.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 10;");
 
         GridPane layout = new GridPane();
         layout.setPadding(new Insets(25));
@@ -111,10 +112,16 @@ public class CartCheckoutView {
         layout.add(btnCheckout, 1, row++);
         layout.add(btnBack, 1, row++);
 
-        Scene scene = new Scene(layout, 550, 500);
+        VBox root = new VBox();
+        root.setAlignment(Pos.CENTER);
+        root.setStyle("-fx-background-color: #1e1e1e;");
+        root.getChildren().add(layout);
+
+        Scene scene = new Scene(root, 600, 500);
         stage.setScene(scene);
         stage.setTitle("Cart");
         stage.show();
+
     }
 
     private void refreshCartList() {
