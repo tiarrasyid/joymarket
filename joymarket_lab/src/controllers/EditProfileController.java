@@ -1,6 +1,6 @@
 package controllers;
 
-import DAO.CustomerDAO;
+import DAO.UserDAO;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import model.Customer;
@@ -11,7 +11,7 @@ public class EditProfileController {
     private Stage stage;
     private EditProfileView view;
     private Customer currentUser;
-    private CustomerDAO cDAO = new CustomerDAO();
+    private UserDAO uDAO = new UserDAO();
 
     public EditProfileController(Stage stage, EditProfileView view, Customer currentUser) {
         this.stage = stage;
@@ -55,9 +55,9 @@ public class EditProfileController {
             return;
         }
 
-
-        if (cDAO.updateProfile(currentUser.getUserId(), newName, newAddress, newPhone)) {
-
+        // UPDATE DATABASE
+        if (uDAO.updateProfile(currentUser.getUserId(), newName, newAddress, newPhone)) {
+            // Update Object User di Memory (biar pas balik ke menu, nama baru langsung muncul)
             currentUser.setUserName(newName);
             currentUser.setUserPhone(newPhone);
             currentUser.setUserAddress(newAddress);

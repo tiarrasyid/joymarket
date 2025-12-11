@@ -1,6 +1,7 @@
 package view;
 
 import controllers.CartController;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -31,14 +32,24 @@ public class CartView {
         TableColumn<CartItem, String> colName = new TableColumn<>("Product");
         colName.setCellValueFactory(new PropertyValueFactory<>("productName"));
 
-        TableColumn<CartItem, Double> colPrice = new TableColumn<>("Price @");
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
+        TableColumn<CartItem, String> colPrice = new TableColumn<>("Price");
+        colPrice.setCellValueFactory(value -> {
+            double price = value.getValue().getProductPrice();
+
+            String formatted = String.format("Rp. %,.0f", price);
+            return new SimpleStringProperty(formatted);
+        });
 
         TableColumn<CartItem, Integer> colQty = new TableColumn<>("Qty");
         colQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        TableColumn<CartItem, Double> colTotal = new TableColumn<>("Subtotal");
-        colTotal.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+        TableColumn<CartItem, String> colTotal = new TableColumn<>("Subtotal");
+        colTotal.setCellValueFactory(value -> {
+            double totalPrice = value.getValue().getTotalPrice();
+
+            String formatted = String.format("Rp. %,.0f", totalPrice);
+            return new SimpleStringProperty(formatted);
+        });
 
         table.getColumns().addAll(colName, colPrice, colQty, colTotal);
 

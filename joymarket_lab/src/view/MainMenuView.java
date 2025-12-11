@@ -4,7 +4,7 @@ import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.Customer;
 import model.User;
@@ -20,7 +20,7 @@ public class MainMenuView {
         Label lblName = new Label("Name : " + customer.getUserName());
         Label lblEmail = new Label("Email : " + customer.getUserEmail());
         Label lblRole = new Label("Role : " + customer.getUserRole());
-        Label lblBalance = new Label("Balance : Rp " + String.format("%.0f", customer.getUserBalance()));
+        Label lblBalance = new Label("Balance : Rp " + String.format("%,.0f", customer.getUserBalance()));
 
         lblName.setStyle("-fx-text-fill: white;");
         lblEmail.setStyle("-fx-text-fill: white;");
