@@ -24,10 +24,8 @@ public class CourierStatusController {
     }
 
     private void loadData() {
-        // Ambil data asli dari database berdasarkan User ID yang login
         ObservableList<Transaction> data = tDAO.getUserTransactions(currentUser.getUserId());
         
-        // Masukkan ke tabel di view
         view.getTable().setItems(data);
     }
 

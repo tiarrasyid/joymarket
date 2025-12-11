@@ -3,7 +3,7 @@ package controllers;
 import java.time.LocalDate;
 import DAO.CartDAO;
 import DAO.ProductDAO;
-import DAO.PromoDAO; // Import PromoDAO
+import DAO.PromoDAO;
 import DAO.TransactionDAO;
 import database.Connect;
 import javafx.collections.ObservableList;
@@ -136,34 +136,30 @@ public class CartController {
             return;
         }
 
-        // --- LOGIC PROMO CODE ---
         String code = view.getTxtPromo().getText().trim();
         double discount = 0;
         
         if (!code.isEmpty()) {
             discount = promoDAO.getDiscount(code);
-            // Sesuai soal: If a promo code is entered, it must exist.
+
             if (discount == 0) {
                 showAlert("Error", "Promo Code tidak valid!");
                 return;
             }
         }
 
-        // Hitung Total Akhir setelah diskon
-        double finalTotal = grandTotal - discount;
-        if (finalTotal < 0) finalTotal = 0; // Tidak boleh minus
 
-        // Validasi Saldo dengan Final Total
+        double finalTotal = grandTotal - discount;
+        if (finalTotal < 0) finalTotal = 0; 
+
         if (currentUser.getUserBalance() < finalTotal) {
             showAlert("Failed", "Saldo tidak cukup! Total Bayar: Rp " + finalTotal);
             return;
         }
 
-        // --- PROSES INSERT DB ---
         String trxId = trxDAO.generateTrxId();
         String date = LocalDate.now().toString();
 
-        // Simpan Transaksi dengan harga Final
         if (trxDAO.insertHeader(trxId, currentUser.getUserId(), date, finalTotal)) {
             for (CartItem item : cartItems) {
                 trxDAO.insertDetail(trxId, item.getProductId(), item.getQuantity());
@@ -173,16 +169,13 @@ public class CartController {
                 db.execUpdate(updateStockQuery);
             }
 
-            // Kurangi Saldo User dengan harga Final
             String updateBalanceQuery = String.format(java.util.Locale.US, 
                     "UPDATE MsUser SET UserBalance = UserBalance - %f WHERE UserID = '%s'", 
                     finalTotal, currentUser.getUserId());
             db.execUpdate(updateBalanceQuery);
 
-            // Update Saldo di Memory
             currentUser.setUserBalance(currentUser.getUserBalance() - finalTotal);
             
-            // Bersihkan Cart
             cartDAO.clearCart(currentUser.getUserId());
 
             String msg = "Checkout Berhasil!";

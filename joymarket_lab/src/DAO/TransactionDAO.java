@@ -11,7 +11,6 @@ import model.Transaction;
 public class TransactionDAO {
     private Connect db = Connect.getInstance();
 
-    // 1. Simpan Header Transaksi (Checkout)
     public boolean insertHeader(String trxId, String userId, String date, double total) {
         String query = String.format(Locale.US, 
             "INSERT INTO MsTransaction (TransactionID, UserID, TransactionDate, TotalPrice, Status) " +
@@ -20,7 +19,6 @@ public class TransactionDAO {
         return db.execUpdate(query);
     }
 
-    // 2. Simpan Detail Transaksi (Checkout)
     public void insertDetail(String trxId, String prodId, int qty) {
         String query = String.format(Locale.US, 
             "INSERT INTO MsTransactionDetail VALUES ('%s', '%s', %d)",
@@ -28,14 +26,12 @@ public class TransactionDAO {
         db.execUpdate(query);
     }
     
-    // 3. Ambil Transaksi Milik User (Untuk Customer Check Status)
     public ObservableList<Transaction> getUserTransactions(String userId) {
         ObservableList<Transaction> transactions = FXCollections.observableArrayList();
         String query = String.format(Locale.US, "SELECT * FROM MsTransaction WHERE UserID = '%s'", userId);
         ResultSet rs = db.execQuery(query);
         try {
             while (rs != null && rs.next()) {
-                // Info yang ditampilkan: Total Harga
                 String info = "Total: Rp " + String.format("%.0f", rs.getDouble("TotalPrice"));
                 String courier = rs.getString("CourierID");
                 
@@ -52,7 +48,6 @@ public class TransactionDAO {
         return transactions;
     }
     
-    // 4. Generate ID Otomatis
     public String generateTrxId() {
         String query = "SELECT TransactionID FROM MsTransaction ORDER BY TransactionID DESC LIMIT 1";
         ResultSet rs = db.execQuery(query);
@@ -68,7 +63,6 @@ public class TransactionDAO {
         return "TR001";
     }
 
-    // 5. Ambil Transaksi Pending (Untuk Admin)
     public ObservableList<Transaction> getPendingTransactions() {
         ObservableList<Transaction> transactions = FXCollections.observableArrayList();
         String query = "SELECT * FROM MsTransaction WHERE Status = 'Pending'";
@@ -90,14 +84,12 @@ public class TransactionDAO {
         return transactions;
     }
 
-    // 6. Assign Courier (Untuk Admin)
     public void assignCourier(String trxId, String courierId) {
         String query = String.format("UPDATE MsTransaction SET CourierID = '%s', Status = 'In Progress' WHERE TransactionID = '%s'", 
             courierId, trxId);
         db.execUpdate(query);
     }
 
-    // 7. Ambil Transaksi Kurir (Untuk Courier)
     public ObservableList<Transaction> getCourierTransactions(String courierId) {
         ObservableList<Transaction> transactions = FXCollections.observableArrayList();
         String query = String.format("SELECT * FROM MsTransaction WHERE CourierID = '%s'", courierId);
@@ -119,7 +111,6 @@ public class TransactionDAO {
         return transactions;
     }
 
-    // 8. Update Status (Untuk Courier)
     public void updateStatus(String trxId, String newStatus) {
         String query = String.format("UPDATE MsTransaction SET Status = '%s' WHERE TransactionID = '%s'", 
             newStatus, trxId);

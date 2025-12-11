@@ -16,9 +16,8 @@ public class CartView {
     private TableView<CartItem> table;
     private Label lblTotal;
     
-    // Tambahan Komponen Baru (Promo & Edit)
     private TextField txtNewQty;
-    private TextField txtPromo; // Field Promo Baru
+    private TextField txtPromo;
     private Button btnUpdate, btnRemove; 
     private Button btnCheckout, btnBack;
 
@@ -26,7 +25,6 @@ public class CartView {
         Label title = new Label("My Shopping Cart");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
-        // --- TABLE SETUP ---
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -44,21 +42,19 @@ public class CartView {
 
         table.getColumns().addAll(colName, colPrice, colQty, colTotal);
 
-        // --- EDIT SECTION ---
         txtNewQty = new TextField();
         txtNewQty.setPromptText("New Qty");
         txtNewQty.setPrefWidth(80);
 
         btnUpdate = new Button("Update Qty");
-        btnUpdate.setStyle("-fx-background-color: #f59e0b; -fx-text-fill: white;"); // Orange
+        btnUpdate.setStyle("-fx-background-color: #f59e0b; -fx-text-fill: white;");
 
         btnRemove = new Button("Remove Item");
-        btnRemove.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white;"); // Merah
+        btnRemove.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white;");
 
         HBox editBox = new HBox(10, txtNewQty, btnUpdate, btnRemove);
         editBox.setAlignment(Pos.CENTER);
 
-        // --- PROMO SECTION (BARU) ---
         Label lblPromo = new Label("Promo Code:");
         lblPromo.setStyle("-fx-text-fill: white;");
         
@@ -68,7 +64,6 @@ public class CartView {
         HBox promoBox = new HBox(10, lblPromo, txtPromo);
         promoBox.setAlignment(Pos.CENTER);
 
-        // --- FOOTER SECTION ---
         lblTotal = new Label("Total: Rp 0");
         lblTotal.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #4ade80;");
 
@@ -85,10 +80,9 @@ public class CartView {
         layout.setAlignment(Pos.CENTER);
         layout.setStyle("-fx-background-color: #1e1e1e");
         
-        // Masukkan promoBox ke layout
         layout.getChildren().addAll(title, table, editBox, promoBox, lblTotal, btnCheckout, btnBack);
 
-        Scene scene = new Scene(layout, 600, 600); // Tinggi ditambah dikit
+        Scene scene = new Scene(layout, 600, 600);
         stage.setScene(scene);
         stage.setTitle("My Cart");
         stage.show();
@@ -99,7 +93,7 @@ public class CartView {
     public TableView<CartItem> getTable() { return table; }
     public Label getLblTotal() { return lblTotal; }
     public TextField getTxtNewQty() { return txtNewQty; }
-    public TextField getTxtPromo() { return txtPromo; } // Getter Promo
+    public TextField getTxtPromo() { return txtPromo; }
     public Button getBtnUpdate() { return btnUpdate; }
     public Button getBtnRemove() { return btnRemove; }
     public Button getBtnCheckout() { return btnCheckout; }
