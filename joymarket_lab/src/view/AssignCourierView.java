@@ -1,5 +1,8 @@
 package view;
 
+import javax.swing.table.TableColumn;
+import javax.swing.text.TableView;
+
 import controllers.AssignCourierController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,6 +25,7 @@ public class AssignCourierView {
         Label title = new Label("Assign Order to Courier");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
+        // TABLE
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -36,6 +40,7 @@ public class AssignCourierView {
 
         table.getColumns().addAll(colID, colInfo, colStatus);
 
+        // INPUT SECTION
         Label lblCourier = new Label("Select Courier:");
         lblCourier.setStyle("-fx-text-fill: white;");
 

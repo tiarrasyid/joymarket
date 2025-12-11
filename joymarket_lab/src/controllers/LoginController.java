@@ -57,6 +57,7 @@ public class LoginController {
 
         System.out.println("Login Successfully as " + user.getUserRole());
 
+        // --- ROLE BASED NAVIGATION ---
         if (user.getUserRole().equalsIgnoreCase("Admin")) {
             AdminMenuView adminMenu = new AdminMenuView();
             adminMenu.start(stage, user);
@@ -99,6 +100,7 @@ public class LoginController {
     private boolean validationRegisterInput(String fullNameString, String emailString, String passwordString, String confirmPasswordString, String phoneString, String addressString, String gendeString, ObservableList<Customer> customers) {
         boolean emailIsExist = customers.stream().anyMatch(c -> c.getUserEmail().equalsIgnoreCase(emailString));
 
+        // --- VALIDASI MANUAL PENGGANTI REGEX (Sesuai Soal) ---
         boolean isNumeric = true;
         for (char c : phoneString.toCharArray()) {
             if (!Character.isDigit(c)) {

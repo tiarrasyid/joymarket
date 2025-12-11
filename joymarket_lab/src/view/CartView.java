@@ -1,5 +1,8 @@
 package view;
 
+import javax.swing.table.TableColumn;
+import javax.swing.text.TableView;
+
 import controllers.CartController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,6 +28,7 @@ public class CartView {
         Label title = new Label("My Shopping Cart");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
+        // --- TABLE SETUP ---
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -42,6 +46,7 @@ public class CartView {
 
         table.getColumns().addAll(colName, colPrice, colQty, colTotal);
 
+        // --- EDIT SECTION ---
         txtNewQty = new TextField();
         txtNewQty.setPromptText("New Qty");
         txtNewQty.setPrefWidth(80);
@@ -55,6 +60,7 @@ public class CartView {
         HBox editBox = new HBox(10, txtNewQty, btnUpdate, btnRemove);
         editBox.setAlignment(Pos.CENTER);
 
+        // --- PROMO SECTION (BARU) ---
         Label lblPromo = new Label("Promo Code:");
         lblPromo.setStyle("-fx-text-fill: white;");
         
@@ -64,6 +70,7 @@ public class CartView {
         HBox promoBox = new HBox(10, lblPromo, txtPromo);
         promoBox.setAlignment(Pos.CENTER);
 
+        // --- FOOTER SECTION ---
         lblTotal = new Label("Total: Rp 0");
         lblTotal.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #4ade80;");
 

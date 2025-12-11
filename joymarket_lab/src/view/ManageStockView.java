@@ -1,5 +1,8 @@
 package view;
 
+import javax.swing.table.TableColumn;
+import javax.swing.text.TableView;
+
 import controllers.ManageStockController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,6 +24,7 @@ public class ManageStockView {
         Label title = new Label("Manage Product Stock");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
+        // --- TABLE ---
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -35,6 +39,7 @@ public class ManageStockView {
 
         table.getColumns().addAll(colName, colPrice, colStock);
 
+        // --- UPDATE SECTION ---
         Label lblStock = new Label("New Stock:");
         lblStock.setStyle("-fx-text-fill: white;");
 

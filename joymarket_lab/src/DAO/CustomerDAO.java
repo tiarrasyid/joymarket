@@ -78,6 +78,7 @@ public class CustomerDAO {
         return db.execUpdate(query);
     }
     
+    // Ambil semua user yang role-nya COURIER
     public ObservableList<Customer> getAllCouriers() {
         ObservableList<Customer> couriers = FXCollections.observableArrayList();
         String query = "SELECT * FROM MsUser WHERE UserRole = 'Courier'";
@@ -103,6 +104,7 @@ public class CustomerDAO {
         return couriers;
     }
     
+    // UPDATE PROFILE USER (Nama, Alamat, Telepon)
     public boolean updateProfile(String userId, String newName, String newAddress, String newPhone) {
         String query = String.format("UPDATE MsUser SET UserName = '%s', UserAddress = '%s', UserPhone = '%s' WHERE UserID = '%s'", 
             newName, newAddress, newPhone, userId);

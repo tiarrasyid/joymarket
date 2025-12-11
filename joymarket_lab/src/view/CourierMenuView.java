@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.User;
+import src.view.CourierOrderView;
+import src.view.LoginView;
 
 public class CourierMenuView {
     
@@ -18,6 +20,7 @@ public class CourierMenuView {
         Label lblWelcome = new Label("Welcome, " + courier.getUserName());
         lblWelcome.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
 
+        // TOMBOL 1: Lihat Pesanan (Orders)
         Button btnOrders = new Button("My Delivery Orders");
         btnOrders.setPrefWidth(220);
         btnOrders.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px;");
@@ -26,6 +29,7 @@ public class CourierMenuView {
             orderView.start(stage, courier);
         });
         
+        // TOMBOL 2: Logout
         Button btnLogout = new Button("Logout");
         btnLogout.setPrefWidth(220);
         btnLogout.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-size: 14px;");

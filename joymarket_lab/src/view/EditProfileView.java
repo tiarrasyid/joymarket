@@ -18,6 +18,7 @@ public class EditProfileView {
         Label title = new Label("Edit Profile");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
+        // --- FORM FIELDS ---
         Label lblName = new Label("Full Name:");
         lblName.setStyle("-fx-text-fill: white;");
         txtName = new TextField(user.getUserName()); 
@@ -32,6 +33,7 @@ public class EditProfileView {
         txtAddress.setPrefRowCount(3);
         txtAddress.setWrapText(true);
 
+        // --- BUTTONS ---
         btnSave = new Button("Save Changes");
         btnSave.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white;");
         btnSave.setPrefWidth(150);
@@ -40,6 +42,7 @@ public class EditProfileView {
         btnBack.setStyle("-fx-background-color: white; -fx-text-fill: #3b82f6;");
         btnBack.setPrefWidth(150);
 
+        // --- LAYOUT ---
         GridPane layout = new GridPane();
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(20));

@@ -36,22 +36,26 @@ public class CourierController {
     }
 
     private void handleUpdate() {
+        // 1. Cek Transaksi terpilih
         Transaction selectedTrx = view.getTable().getSelectionModel().getSelectedItem();
         if (selectedTrx == null) {
             showAlert("Error", "Pilih transaksi yang mau diupdate!");
             return;
         }
 
+        // 2. Cek Status terpilih
         String newStatus = view.getCbStatus().getValue();
         if (newStatus == null) {
             showAlert("Error", "Pilih status baru dulu!");
             return;
         }
 
+        // 3. Update ke Database
         trxDAO.updateStatus(selectedTrx.getTransactionId(), newStatus);
         
         showAlert("Success", "Status berhasil diubah menjadi: " + newStatus);
         
+        // Refresh Table
         loadData();
     }
 

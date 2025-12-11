@@ -8,6 +8,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Customer;
 import model.User;
+import src.view.CartView;
+import src.view.CourierStatusView;
+import src.view.CustomerTopUpView;
+import src.view.EditProfileView;
+import src.view.LoginView;
+import src.view.ShopView;
 
 public class MainMenuView {
     
@@ -34,7 +40,7 @@ public class MainMenuView {
         userInfoBox.setMaxWidth(350);
         userInfoBox.setStyle("-fx-background-color: #2a2a2a; -fx-background-radius: 10;");
 
-        
+        // 1. Edit Profile (BARU)
         Button btnProfile = new Button("Edit Profile");
         btnProfile.setPrefWidth(200);
         btnProfile.setStyle("-fx-background-color: #8b5cf6; -fx-text-fill: white; -fx-font-size: 14px;");
@@ -43,6 +49,7 @@ public class MainMenuView {
             profileView.start(stage, customer);
         });
 
+        // 2. Top Up
         Button btnTopUp = new Button("Top Up Balance");
         btnTopUp.setPrefWidth(200);
         btnTopUp.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px;");
@@ -51,6 +58,7 @@ public class MainMenuView {
             topUpView.start(stage, customer); 
         });
 
+        // 3. Shop
         Button btnShop = new Button("Buy Products");
         btnShop.setPrefWidth(200);
         btnShop.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px;");
@@ -59,6 +67,7 @@ public class MainMenuView {
             shopView.start(stage, customer);
         });
         
+        // 4. Cart
         Button btnCart = new Button("My Cart");
         btnCart.setPrefWidth(200);
         btnCart.setStyle("-fx-background-color: #f59e0b; -fx-text-fill: white; -fx-font-size: 14px;");
@@ -67,6 +76,7 @@ public class MainMenuView {
             cartView.start(stage, customer);
         });
 
+        // 5. Courier Status
         Button btnStatus = new Button("Check Delivery Status");
         btnStatus.setPrefWidth(200);
         btnStatus.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px;");
@@ -75,6 +85,7 @@ public class MainMenuView {
             statusView.start(stage, customer);
         });
 
+        // 6. Logout
         Button btnLogout = new Button("Logout");
         btnLogout.setPrefWidth(200);
         btnLogout.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-size: 14px;");
