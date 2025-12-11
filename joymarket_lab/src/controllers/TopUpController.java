@@ -1,6 +1,8 @@
 package controllers;
 
-import DAO.CustomerDAO;
+import java.util.Locale;
+
+import DAO.UserDAO;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import model.Customer;
@@ -11,7 +13,7 @@ public class TopUpController {
     private Stage stage;
     private CustomerTopUpView view;
     private Customer currentUser;
-    private CustomerDAO cDAO = new CustomerDAO();
+    private UserDAO uDAO = new UserDAO();
 
     public TopUpController(Stage stage, CustomerTopUpView view, Customer currentUser) {
         this.stage = stage;
@@ -40,7 +42,7 @@ public class TopUpController {
 
         // Validasi input angka
         if (amountStr.isEmpty() || !isNumeric) {
-            view.getLblError().setText("Masukkan nominal angka saja!");
+            view.setLblError("Masukkan nominal angka saja!");
             return;
         }
 
@@ -48,7 +50,7 @@ public class TopUpController {
 
         // Validasi minimal 10.000
         if (amount < 10000) {
-            view.getLblError().setText("Minimal top up Rp 10.000");
+            view.setLblError("Minimal top up Rp 10.000");;
             return;
         }
 
@@ -60,13 +62,13 @@ public class TopUpController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText(null);
-            alert.setContentText("Top Up Berhasil! Saldo bertambah: " + amount);
+            alert.setContentText(String.format(Locale.US, "Top Up Berhasil! Saldo bertambah: %,.0f", amount));
             alert.showAndWait();
             
             // Kembali ke Main Menu
             handleBack();
         } else {
-            view.getLblError().setText("Gagal koneksi database");
+            view.setLblError("Gagal koneksi database");;
         }
     }
 

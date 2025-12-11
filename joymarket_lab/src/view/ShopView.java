@@ -4,6 +4,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.text.TableView;
 
 import controllers.ShopController;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -31,8 +32,13 @@ public class ShopView {
         TableColumn<Product, String> colName = new TableColumn<>("Name");
         colName.setCellValueFactory(new PropertyValueFactory<>("productName"));
 
-        TableColumn<Product, Double> colPrice = new TableColumn<>("Price");
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
+        TableColumn<Product, String> colPrice = new TableColumn<>("Price");
+        colPrice.setCellValueFactory(value -> {
+            double price = value.getValue().getProductPrice();
+
+            String formatted = String.format("Rp. %,.0f", price);
+            return new SimpleStringProperty(formatted);
+        });
 
         TableColumn<Product, Integer> colStock = new TableColumn<>("Stock");
         colStock.setCellValueFactory(new PropertyValueFactory<>("productStock"));
