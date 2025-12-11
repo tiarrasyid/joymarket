@@ -18,7 +18,6 @@ public class AdminMenuView {
         Label lblWelcome = new Label("Welcome, " + admin.getUserName());
         lblWelcome.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
 
-        // TOMBOL 1: Assign Courier
         Button btnAssign = new Button("Assign Orders to Courier");
         btnAssign.setPrefWidth(220);
         btnAssign.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px;");
@@ -27,18 +26,15 @@ public class AdminMenuView {
             assignView.start(stage, admin);
         });
 
-        // TOMBOL 2: Manage Stock
         Button btnStock = new Button("Manage Product Stock");
         btnStock.setPrefWidth(220);
         btnStock.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px;");
         
-        // AKTIFKAN KE VIEW BARU
         btnStock.setOnAction(e -> {
             ManageStockView stockView = new ManageStockView();
             stockView.start(stage, admin);
         });
         
-        // TOMBOL 3: Logout
         Button btnLogout = new Button("Logout");
         btnLogout.setPrefWidth(220);
         btnLogout.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-size: 14px;");

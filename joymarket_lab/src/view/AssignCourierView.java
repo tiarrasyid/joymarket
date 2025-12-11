@@ -9,7 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.Customer; // Kita pakai model Customer utk list kurir
+import model.Customer;
 import model.Transaction;
 import model.User;
 
@@ -22,7 +22,6 @@ public class AssignCourierView {
         Label title = new Label("Assign Order to Courier");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
-        // TABLE
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -30,14 +29,13 @@ public class AssignCourierView {
         colID.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
 
         TableColumn<Transaction, String> colInfo = new TableColumn<>("Info");
-        colInfo.setCellValueFactory(new PropertyValueFactory<>("itemName")); // Kita tadi simpan info di itemName
+        colInfo.setCellValueFactory(new PropertyValueFactory<>("itemName"));
 
         TableColumn<Transaction, String> colStatus = new TableColumn<>("Status");
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         table.getColumns().addAll(colID, colInfo, colStatus);
 
-        // INPUT SECTION
         Label lblCourier = new Label("Select Courier:");
         lblCourier.setStyle("-fx-text-fill: white;");
 

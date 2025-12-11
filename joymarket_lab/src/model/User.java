@@ -5,9 +5,9 @@ public class User {
     protected String userName;
     protected String userEmail;
     protected String userPassword;
-    protected String userGender;   // Pindah ke sini
-    protected String userAddress;  // Pindah ke sini
-    protected String userPhone;    // Pindah ke sini
+    protected String userGender;   
+    protected String userAddress;  
+    protected String userPhone;    
     protected String userRole;
 
     public User(String userId, String userName, String userEmail, String userPassword, String userGender, String userAddress, String userPhone, String userRole) {
@@ -23,7 +23,6 @@ public class User {
 
     public User() {}
 
-    // --- GETTER & SETTER LENGKAP ---
 
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }

@@ -17,6 +17,6 @@ public class PromoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0; // Return 0 kalau tidak ditemukan
+        return 0;
     }
 }

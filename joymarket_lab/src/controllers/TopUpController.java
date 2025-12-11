@@ -30,7 +30,6 @@ public class TopUpController {
     private void handleTopUp() {
         String amountStr = view.getTxtAmount().getText();
         
-        // --- VALIDASI MANUAL PENGGANTI REGEX ---
         boolean isNumeric = true;
         for (char c : amountStr.toCharArray()) {
             if (!Character.isDigit(c)) {
@@ -38,10 +37,8 @@ public class TopUpController {
                 break;
             }
         }
-        // ---------------------------------------
 
-        // Validasi input angka
-        // Ganti !matches dengan !isNumeric
+
         if (amountStr.isEmpty() || !isNumeric) {
             view.setLblError("Masukkan nominal angka saja!");
             return;
@@ -49,7 +46,6 @@ public class TopUpController {
 
         double amount = Double.parseDouble(amountStr);
 
-        // Validasi minimal 10.000
         if (amount < 10000) {
             view.setLblError("Minimal top up Rp 10.000");;
             return;
@@ -68,7 +64,6 @@ public class TopUpController {
             alert.setContentText(String.format(Locale.US, "Top Up Berhasil! Saldo bertambah: %,.0f", amount));
             alert.showAndWait();
             
-            // Kembali ke Main Menu
             handleBack();
         } else {
             view.setLblError("Gagal koneksi database");;

@@ -20,7 +20,6 @@ public class AssignCourierController {
     private TransactionDAO trxDAO = new TransactionDAO();
     private UserDAO userDAO = new UserDAO();
     
-    // Kita butuh map untuk menyimpan ID kurir berdasarkan Namanya di ComboBox
     private HashMap<String, String> courierMap = new HashMap<>();
 
     public AssignCourierController(Stage stage, AssignCourierView view, User currentUser) {
@@ -33,16 +32,13 @@ public class AssignCourierController {
     }
 
     private void loadData() {
-        // 1. Load Tabel Transaksi Pending
         view.getTable().setItems(trxDAO.getPendingTransactions());
 
-        // 2. Load ComboBox Kurir
         ObservableList<Customer> couriers = userDAO.getAllCouriers();
         for (Customer c : couriers) {
             String label = c.getUserName() + " (" + c.getUserId() + ")";
             view.getCbCouriers().getItems().add(label);
             
-            // Simpan pair Nama -> ID biar nanti pas dipilih gampang ambil ID-nya
             courierMap.put(label, c.getUserId());
         }
     }
@@ -56,29 +52,24 @@ public class AssignCourierController {
     }
 
     private void handleAssign() {
-        // 1. Cek apakah ada transaksi yang dipilih
         Transaction selectedTrx = view.getTable().getSelectionModel().getSelectedItem();
         if (selectedTrx == null) {
             showAlert("Error", "Pilih transaksi dari tabel dulu!");
             return;
         }
 
-        // 2. Cek apakah kurir sudah dipilih
         String selectedCourierLabel = view.getCbCouriers().getValue();
         if (selectedCourierLabel == null) {
             showAlert("Error", "Pilih kurir dulu!");
             return;
         }
 
-        // 3. Ambil ID Kurir dari Map
         String courierId = courierMap.get(selectedCourierLabel);
 
-        // 4. Update Database
         trxDAO.assignCourier(selectedTrx.getTransactionId(), courierId);
 
         showAlert("Success", "Berhasil assign kurir!");
         
-        // Refresh Tabel
         view.getTable().setItems(trxDAO.getPendingTransactions());
     }
 

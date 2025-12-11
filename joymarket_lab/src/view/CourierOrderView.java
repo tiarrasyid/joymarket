@@ -21,7 +21,6 @@ public class CourierOrderView {
         Label title = new Label("My Delivery Tasks");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
-        // --- TABLE ---
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -29,19 +28,18 @@ public class CourierOrderView {
         colID.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
 
         TableColumn<Transaction, String> colInfo = new TableColumn<>("Customer Info");
-        colInfo.setCellValueFactory(new PropertyValueFactory<>("itemName")); // Simpan info cust disini
+        colInfo.setCellValueFactory(new PropertyValueFactory<>("itemName"));
 
         TableColumn<Transaction, String> colStatus = new TableColumn<>("Current Status");
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         table.getColumns().addAll(colID, colInfo, colStatus);
 
-        // --- UPDATE STATUS SECTION ---
         Label lblStatus = new Label("Update Status:");
         lblStatus.setStyle("-fx-text-fill: white;");
 
         cbStatus = new ComboBox<>();
-        // Status sesuai requirement: Pending, In Progress, Delivered
+
         cbStatus.getItems().addAll("Pending", "In Progress", "Delivered");
         cbStatus.setPromptText("Select new status...");
         cbStatus.setPrefWidth(180);
@@ -65,7 +63,6 @@ public class CourierOrderView {
         stage.setTitle("Manage Delivery");
         stage.show();
 
-        // Panggil Controller
         new CourierController(stage, this, courier);
     }
 

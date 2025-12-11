@@ -28,7 +28,6 @@ public class Connect {
         return instance;
     }
 
-    // untuk melakukan READ data
     public ResultSet execQuery(String query) {
         try {
             return st.executeQuery(query);
@@ -38,7 +37,6 @@ public class Connect {
         }
     }
 
-    // untuk melakukan INSERT/UPDATE/DELETE data
     public boolean execUpdate(String query) {
         try {
             st.executeUpdate(query);

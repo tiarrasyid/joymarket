@@ -21,7 +21,6 @@ public class ManageStockView {
         Label title = new Label("Manage Product Stock");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
-        // --- TABLE ---
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -36,7 +35,6 @@ public class ManageStockView {
 
         table.getColumns().addAll(colName, colPrice, colStock);
 
-        // --- UPDATE SECTION ---
         Label lblStock = new Label("New Stock:");
         lblStock.setStyle("-fx-text-fill: white;");
 
@@ -63,7 +61,6 @@ public class ManageStockView {
         stage.setTitle("Manage Stock");
         stage.show();
 
-        // Panggil Controller
         new ManageStockController(stage, this, admin);
     }
 

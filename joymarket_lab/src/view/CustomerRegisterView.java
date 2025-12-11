@@ -30,7 +30,6 @@ public class CustomerRegisterView {
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
 
         
-        // field
         txtCustomerId = createTextField("Customer ID");
         txtCustomerId.setDisable(true);
         txtCustomerId.setStyle(fieldStyle + "; -fx-opacity: 0.8;");
@@ -57,7 +56,6 @@ public class CustomerRegisterView {
         cbGender.setStyle(fieldStyle);
         cbGender.setPrefWidth(fieldWidth);
         
-        // button
         btnRegister = new Button("Register");
         btnRegister.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 8;");
 

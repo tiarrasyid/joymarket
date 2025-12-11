@@ -58,14 +58,11 @@ public class LoginController {
 
         System.out.println("Login Successfully as " + user.getUserRole());
 
-        // --- ROLE BASED NAVIGATION ---
         if (user.getUserRole().equalsIgnoreCase("Admin")) {
-            // Jika Admin, buka menu Admin
             AdminMenuView adminMenu = new AdminMenuView();
             adminMenu.start(stage, user);
             
         } else if (user.getUserRole().equalsIgnoreCase("Customer")) {
-            // Jika Customer, buka menu Customer
             MainMenuView customerMenu = new MainMenuView();
             customerMenu.start(stage, user);
             
@@ -102,7 +99,6 @@ public class LoginController {
     private boolean validationRegisterInput(String fullNameString, String emailString, String passwordString, String confirmPasswordString, String phoneString, String addressString, String gendeString, ObservableList<String> emails) {
         boolean emailIsExist = emails.stream().anyMatch(c -> c.equalsIgnoreCase(emailString));
 
-        // --- VALIDASI MANUAL PENGGANTI REGEX (Sesuai Soal) ---
         boolean isNumeric = true;
         for (char c : phoneString.toCharArray()) {
             if (!Character.isDigit(c)) {
@@ -110,7 +106,6 @@ public class LoginController {
                 break;
             }
         }
-        // -----------------------------------------------------
 
         if (fullNameString.isEmpty() || fullNameString.length() < 1) {
             errorAlert("Masukan nama", registerView.getTxtFullName());
@@ -127,7 +122,7 @@ public class LoginController {
                     registerView.getTxtPassword());
             return false;
         } else if (phoneString.isEmpty() || phoneString.length() < 10 || phoneString.length() > 13
-                || !isNumeric) { // Cek numerik manual
+                || !isNumeric) {
             errorAlert("Format telepon : 10-13 digit, numeric only", registerView.getTxtPhone());
             return false;
         } else if (addressString.isEmpty()) {

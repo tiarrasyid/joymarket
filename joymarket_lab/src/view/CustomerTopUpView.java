@@ -1,12 +1,12 @@
 package view;
 
-import controllers.TopUpController; // Import Controller
+import controllers.TopUpController;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import model.Customer; // Import Customer
+import model.Customer;
 
 public class CustomerTopUpView {
     private TextField txtAmount;
@@ -17,7 +17,6 @@ public class CustomerTopUpView {
     private final String fieldStyle = "-fx-text-fill: white; -fx-control-inner-background: #2b2b2b";
     private final int fieldWidth = 220;
     
-    // UBAH DISINI: Tambahkan parameter Customer user
     public void start(Stage stage, Customer user) {
         Label title = new Label("Top Up");
         title.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px");
@@ -27,13 +26,11 @@ public class CustomerTopUpView {
         subtitle.setStyle("-fx-text-fill: #cfcfcf; -fx-font-size: 12px;");
         GridPane.setHalignment(subtitle, HPos.CENTER);
         
-        // field
         txtAmount = createTextField("Masukkin nominal yang mau di top-up: ");
         
         lblError = new Label();
         lblError.setStyle("-fx-text-fill: #ef4444; -fx-font-size: 12px");
         
-        // button
         btnTopup = new Button("Top Up");
         btnTopup.setPrefWidth(200);
         btnTopup.setStyle(
@@ -54,7 +51,6 @@ public class CustomerTopUpView {
         ));     
         
         
-        //layout
         GridPane layout = new GridPane();
         layout.setPadding(new Insets(25));
         layout.setVgap(12);
@@ -80,7 +76,6 @@ public class CustomerTopUpView {
         stage.setTitle("Top Up Balance");
         stage.show();
         
-        // PENTING: Panggil Controller disini agar tombol berfungsi
         new TopUpController(stage, this, user);
     }
     
