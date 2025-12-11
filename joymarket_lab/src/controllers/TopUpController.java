@@ -1,6 +1,6 @@
 package controllers;
 
-import DAO.CustomerDAO;
+import DAO.UserDAO;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import model.Customer;
@@ -11,7 +11,7 @@ public class TopUpController {
     private Stage stage;
     private CustomerTopUpView view;
     private Customer currentUser;
-    private CustomerDAO cDAO = new CustomerDAO();
+    private UserDAO uDAO = new UserDAO();
 
     public TopUpController(Stage stage, CustomerTopUpView view, Customer currentUser) {
         this.stage = stage;
@@ -41,7 +41,7 @@ public class TopUpController {
         // Validasi input angka
         // Ganti !matches dengan !isNumeric
         if (amountStr.isEmpty() || !isNumeric) {
-            view.getLblError().setText("Masukkan nominal angka saja!");
+            view.setLblError("Masukkan nominal angka saja!");
             return;
         }
 
@@ -49,12 +49,12 @@ public class TopUpController {
 
         // Validasi minimal 10.000
         if (amount < 10000) {
-            view.getLblError().setText("Minimal top up Rp 10.000");
+            view.setLblError("Minimal top up Rp 10.000");;
             return;
         }
 
         // Proses update ke database
-        if (cDAO.updateUserBalance(currentUser.getUserId(), amount)) {
+        if (uDAO.updateBalance(currentUser.getUserId(), amount)) {
             // Update saldo di object local juga biar sinkron
             currentUser.setUserBalance(currentUser.getUserBalance() + amount);
             
@@ -67,7 +67,7 @@ public class TopUpController {
             // Kembali ke Main Menu
             handleBack();
         } else {
-            view.getLblError().setText("Gagal koneksi database");
+            view.setLblError("Gagal koneksi database");;
         }
     }
 

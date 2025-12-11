@@ -75,7 +75,8 @@ public class CustomerTopUpView {
         layout.add(btnTopup, 1, row++);
         layout.add(btnBack, 1, row++);
         
-        Scene scene = new Scene(layout, 500, 400);
+        Scene scene = new Scene(layout, 450, 420);
+        new TopUpController(stage, this, user);
         stage.setScene(scene);
         stage.setTitle("Top Up Balance");
         stage.show();
@@ -101,5 +102,6 @@ public class CustomerTopUpView {
     public TextField getTxtAmount() { return txtAmount; }
     public Button getBtnTopUp() { return btnTopup; }
     public Button getBtnBack() { return btnBack; }
-    public Label getLblError() { return lblError; }
+
+    public void setLblError(String lblError) { this.lblError.setText(lblError); }
 }

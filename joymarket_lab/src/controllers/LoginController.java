@@ -1,6 +1,6 @@
 package controllers;
 
-import DAO.CustomerDAO;
+import DAO.UserDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -8,24 +8,23 @@ import javafx.scene.control.Control;
 import javafx.stage.Stage;
 import model.Customer;
 import model.User;
-import view.AdminMenuView; // Import Menu Admin
 import view.CustomerRegisterView;
 import view.LoginView;
-import view.MainMenuView; // Import Menu Customer
+import view.MainMenuView;
 
 public class LoginController {
     private Stage stage;
     private LoginView loginView;
     private CustomerRegisterView registerView;
 
-    ObservableList<Customer> customers = FXCollections.observableArrayList();
-    CustomerDAO cDAO = new CustomerDAO();
+    ObservableList<String> emails = FXCollections.observableArrayList();
+    UserDAO uDAO = new UserDAO();
 
     public LoginController(Stage stage, LoginView loginView, CustomerRegisterView registerView) {
         this.stage = stage;
         this.loginView = loginView;
         this.registerView = registerView;
-        this.customers = cDAO.getAll(); 
+        emails = uDAO.getAllEmail();
         initAction();
     }
 
@@ -60,8 +59,8 @@ public class LoginController {
         // --- ROLE BASED NAVIGATION ---
         if (user.getUserRole().equalsIgnoreCase("Admin")) {
             // Jika Admin, buka menu Admin
-            AdminMenuView adminMenu = new AdminMenuView();
-            adminMenu.start(stage, user);
+            // AdminMenuView adminMenu = new AdminMenuView();
+            // adminMenu.start(stage, user);
             
         } else if (user.getUserRole().equalsIgnoreCase("Customer")) {
             // Jika Customer, buka menu Customer
@@ -69,8 +68,8 @@ public class LoginController {
             customerMenu.start(stage, user);
             
         } else if (user.getUserRole().equalsIgnoreCase("Courier")) {
-        	view.CourierMenuView courierMenu = new view.CourierMenuView();
-            courierMenu.start(stage, user);
+        	// CourierMenuView courierMenu = new CourierMenuView();
+            // courierMenu.start(stage, user);
         }
     }
 
@@ -84,23 +83,22 @@ public class LoginController {
         String gendeString = registerView.getCbGender().getValue();
 
         if (!validationRegisterInput(fullNameString, emailString, passwordString, confirmPasswordString, phoneString,
-                addressString, gendeString, customers)) {
+                addressString, gendeString, emails)) {
             return;
         }
 
-        int index = customers.size() + 1;
+        int index = emails.size() - 1;
         Customer newCustomer = new Customer(String.format("CS%03d", index), fullNameString, emailString, passwordString,
                 gendeString, addressString, phoneString, 0);
-        
-        if (cDAO.insertCustomer(newCustomer)) {
+        if (uDAO.insertCustomer(newCustomer)) {
             System.out.println("Register Successfully");
             MainMenuView user = new MainMenuView();
             user.start(stage, newCustomer);
         }
     }
 
-    private boolean validationRegisterInput(String fullNameString, String emailString, String passwordString, String confirmPasswordString, String phoneString, String addressString, String gendeString, ObservableList<Customer> customers) {
-        boolean emailIsExist = customers.stream().anyMatch(c -> c.getUserEmail().equalsIgnoreCase(emailString));
+    private boolean validationRegisterInput(String fullNameString, String emailString, String passwordString, String confirmPasswordString, String phoneString, String addressString, String gendeString, ObservableList<String> emails) {
+        boolean emailIsExist = emails.stream().anyMatch(c -> c.equalsIgnoreCase(emailString));
 
         // --- VALIDASI MANUAL PENGGANTI REGEX (Sesuai Soal) ---
         boolean isNumeric = true;
@@ -150,23 +148,20 @@ public class LoginController {
             return null;
         }
 
-        Customer existingCustomer = customers.stream()
-                                    .filter(c -> c.getUserEmail().equalsIgnoreCase(email))
-                                    .findFirst()
-                                    .orElse(null);
+        User existingUser = uDAO.getUser(email, password);
 
         // Logic login juga berlaku untuk Admin/Courier karena mereka ada di tabel MsUser yang sama
-        // (Diasumsikan CustomerDAO.getAll() mengambil semua user dari MsUser)
+        // (Diasumsikan CustomerDAO.getUser() mengambil semua user dari MsUser)
         
-        if (existingCustomer == null) {
+        if (existingUser == null) {
             errorAlert("Akun tidak ditemukan", loginView.getTxtEmail());
             return null;
-        } else if (!existingCustomer.getUserPassword().equals(password)) {
+        } else if (!existingUser.getUserPassword().equals(password)) {
             errorAlert("Password salah", loginView.getTxtPassword());
             return null;
         }
 
-        return existingCustomer;
+        return existingUser;
     }
 
     private void errorAlert(String message, Control field) {
