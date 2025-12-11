@@ -1,5 +1,6 @@
 package view;
 
+import controllers.LoginController;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -64,7 +65,8 @@ public class LoginView {
         layout.add(btnLogin, 1, 3);
         layout.add(btnToRegister, 1, 4);
 
-        Scene scene = new Scene(layout, 500, 400);
+        Scene scene = new Scene(layout, 400, 350);
+        new LoginController(stage, this, null);
         stage.setScene(scene);
         stage.setTitle("Login Page");
         stage.show();

@@ -1,4 +1,5 @@
 package main;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.ProductListView;
@@ -13,15 +14,13 @@ import view.OrderHistoryView;
 public class Main extends Application{
 
 		// TODO Auto-generated constructor stub
-		public void start(Stage stage){
-			CartCheckoutView test = new CartCheckoutView();
-			test.start(stage);
-		}
-	
+    @Override
+    public void start(Stage stage) {
+        LoginView login = new LoginView();
+        login.start(stage);
+    }
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		launch(args);
-	}
-
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

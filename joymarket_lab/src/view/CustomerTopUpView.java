@@ -1,34 +1,34 @@
 package view;
 
-import java.text.ParseException;
-
+import controllers.TopUpController; // Import Controller
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Customer; // Import Customer
 
-public class CustomerTopUpView{
-	private TextField txtAmount;
-	private Button btnTopup;
-	private Button btnBack;
-	private Label lblError;
-	
-	private final String fieldStyle = "-fx-text-fill: white; -fx-control-inner-background: #2b2b2b";
-	private final int fieldWidth = 220;
-	
-	public void start(Stage stage) {
-		Label title = new Label("Top Up");
-		title.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px");
-		GridPane.setHalignment(title, HPos.CENTER);
-		
+public class CustomerTopUpView {
+    private TextField txtAmount;
+    private Button btnTopup;
+    private Button btnBack;
+    private Label lblError;
+    
+    private final String fieldStyle = "-fx-text-fill: white; -fx-control-inner-background: #2b2b2b";
+    private final int fieldWidth = 220;
+    
+    // UBAH DISINI: Tambahkan parameter Customer user
+    public void start(Stage stage, Customer user) {
+        Label title = new Label("Top Up");
+        title.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px");
+        GridPane.setHalignment(title, HPos.CENTER);
+        
         Label subtitle = new Label("Masukkan nominal saldo yang mau di top-up: (min 10.000)");
         subtitle.setStyle("-fx-text-fill: #cfcfcf; -fx-font-size: 12px;");
         GridPane.setHalignment(subtitle, HPos.CENTER);
         
         // field
         txtAmount = createTextField("Masukkin nominal yang mau di top-up: ");
-        
         
         lblError = new Label();
         lblError.setStyle("-fx-text-fill: #ef4444; -fx-font-size: 12px");
@@ -46,7 +46,12 @@ public class CustomerTopUpView{
         btnBack.setStyle(
             "-fx-background-color: #ffffff; -fx-text-fill: #3b82f6; -fx-background-radius: 8; -fx-padding: 10 20;"
         );
-  
+        btnBack.setOnMouseEntered(e -> btnBack.setStyle(
+            "-fx-background-color: #e8e8e8; -fx-text-fill: #3b82f6; -fx-font-size: 14px; -fx-background-radius: 8;"
+        ));
+        btnBack.setOnMouseExited(e -> btnBack.setStyle(
+            "-fx-background-color: #ffffff; -fx-text-fill: #3b82f6; -fx-font-size: 14px; -fx-background-radius: 8;"
+        ));     
         
         
         //layout
@@ -75,34 +80,24 @@ public class CustomerTopUpView{
         stage.setTitle("Top Up Balance");
         stage.show();
         
-	}
-	
-	private TextField createTextField(String placeholder) {
-		TextField tf = new TextField();
-		tf.setPromptText(placeholder);
-		tf.setStyle(fieldStyle);
-		tf.setPrefWidth(fieldWidth);
-		return tf;
-	}
-	
-	private Label createLabel(String text) {
-		Label label = new Label(text);
-		label.setStyle("-fx-text-fill: white");
-		return label;
-	}
-	
-	String amountText = txtAmount.getText();
-	int amount = Integer.parseInt(amountText);
-	
-	// buat cek apakah amount > 10000
-	public String validateAmount(int amount) {
-		if(amount < 10000) {
-			return "Please input amount greater than 10.000";
-		}
-		
-		return "Success";
-	}
-	
+        // PENTING: Panggil Controller disini agar tombol berfungsi
+        new TopUpController(stage, this, user);
+    }
+    
+    private TextField createTextField(String placeholder) {
+        TextField tf = new TextField();
+        tf.setPromptText(placeholder);
+        tf.setStyle(fieldStyle);
+        tf.setPrefWidth(fieldWidth);
+        return tf;
+    }
+    
+    private Label createLabel(String text) {
+        Label label = new Label(text);
+        label.setStyle("-fx-text-fill: white");
+        return label;
+    }
+    
     public TextField getTxtAmount() { return txtAmount; }
     public Button getBtnTopUp() { return btnTopup; }
     public Button getBtnBack() { return btnBack; }
