@@ -1,5 +1,8 @@
 package view;
 
+import javax.swing.table.TableColumn;
+import javax.swing.text.TableView;
+
 import controllers.CourierController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,6 +24,7 @@ public class CourierOrderView {
         Label title = new Label("My Delivery Tasks");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
+         // --- TABLE ---
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -35,6 +39,7 @@ public class CourierOrderView {
 
         table.getColumns().addAll(colID, colInfo, colStatus);
 
+        // --- UPDATE STATUS SECTION ---
         Label lblStatus = new Label("Update Status:");
         lblStatus.setStyle("-fx-text-fill: white;");
 

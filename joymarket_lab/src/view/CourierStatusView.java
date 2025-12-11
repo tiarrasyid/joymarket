@@ -23,11 +23,13 @@ public class CourierStatusView {
         Label title = new Label("My Delivery Status");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
+        // 1. Setup TableView
         table = new TableView<>();
         table.setStyle("-fx-background-color: #2b2b2b; -fx-text-fill: black;");
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setPlaceholder(new Label("No active transactions"));
 
+        // 2. Setup Kolom
         TableColumn<Transaction, String> colId = new TableColumn<>("Trx ID");
         colId.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
 
@@ -42,10 +44,12 @@ public class CourierStatusView {
 
         table.getColumns().addAll(colId, colInfo, colCourier, colStatus);
 
+        // 3. Button
         btnBack = new Button("Back to Menu");
         btnBack.setPrefWidth(200);
         btnBack.setStyle("-fx-background-color: white; -fx-text-fill: #3b82f6; -fx-font-size: 14px;");
 
+        // 4. Layout
         VBox layout = new VBox(15);
         layout.setPadding(new Insets(25));
         layout.setAlignment(Pos.CENTER);

@@ -1,5 +1,8 @@
 package view;
 
+import javax.swing.table.TableColumn;
+import javax.swing.text.TableView;
+
 import controllers.ShopController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
@@ -22,6 +25,7 @@ public class ShopView {
         Label title = new Label("Shop Products");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
+        // --- TABLE VIEW ---
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
@@ -41,6 +45,7 @@ public class ShopView {
 
         table.getColumns().addAll(colName, colPrice, colStock);
 
+        // --- INPUT SECTION ---
         Label lblQty = new Label("Quantity:");
         lblQty.setStyle("-fx-text-fill: white;");
         

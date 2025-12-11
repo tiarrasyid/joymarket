@@ -41,20 +41,23 @@ public class ShopController {
     }
 
     private void handleAddToCart() {
-
+        // 1. Ambil Produk yang dipilih di Tabel
         Product selectedProduct = view.getTable().getSelectionModel().getSelectedItem();
         String qtyStr = view.getTxtQuantity().getText();
 
+        // VALIDASI 1: Harus pilih produk
         if (selectedProduct == null) {
             showAlert("Error", "Pilih produk dari tabel dulu!");
             return;
         }
 
+        // VALIDASI 2: Quantity tidak boleh kosong
         if (qtyStr.isEmpty()) {
             showAlert("Error", "Masukkan jumlah barang!");
             return;
         }
 
+        // VALIDASI 3: Quantity harus angka (MANUAL - TANPA REGEX)
         boolean isNumeric = true;
         for (char c : qtyStr.toCharArray()) {
             if (!Character.isDigit(c)) {
@@ -69,6 +72,7 @@ public class ShopController {
 
         int qty = Integer.parseInt(qtyStr);
 
+        // VALIDASI 4: Minimal 1 dan Maksimal sesuai Stock (Sesuai Soal)
         if (qty < 1) {
             showAlert("Error", "Minimal beli 1 barang");
             return;
@@ -78,6 +82,7 @@ public class ShopController {
             return;
         }
 
+        // --- PROSES SAVE KE DATABASE ---
         if (cartDAO.checkItemInCart(currentUser.getUserId(), selectedProduct.getProductId())) {
             cartDAO.updateCartQty(currentUser.getUserId(), selectedProduct.getProductId(), qty);
         } else {

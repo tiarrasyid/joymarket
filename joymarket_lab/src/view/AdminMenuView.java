@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.User;
+import src.view.AssignCourierView;
+import src.view.LoginView;
+import src.view.ManageStockView;
 
 public class AdminMenuView {
     
@@ -18,6 +21,7 @@ public class AdminMenuView {
         Label lblWelcome = new Label("Welcome, " + admin.getUserName());
         lblWelcome.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
 
+        // TOMBOL 1: Assign Courier
         Button btnAssign = new Button("Assign Orders to Courier");
         btnAssign.setPrefWidth(220);
         btnAssign.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px;");
@@ -26,6 +30,7 @@ public class AdminMenuView {
             assignView.start(stage, admin);
         });
 
+        // TOMBOL 2: Manage Stock
         Button btnStock = new Button("Manage Product Stock");
         btnStock.setPrefWidth(220);
         btnStock.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px;");
@@ -35,6 +40,7 @@ public class AdminMenuView {
             stockView.start(stage, admin);
         });
         
+        // TOMBOL 3: Logout
         Button btnLogout = new Button("Logout");
         btnLogout.setPrefWidth(220);
         btnLogout.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-size: 14px;");
