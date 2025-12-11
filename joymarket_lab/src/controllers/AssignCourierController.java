@@ -1,8 +1,8 @@
 package controllers;
 
 import java.util.HashMap;
-import DAO.CustomerDAO;
 import DAO.TransactionDAO;
+import DAO.UserDAO;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
@@ -18,7 +18,7 @@ public class AssignCourierController {
     private User currentUser;
     
     private TransactionDAO trxDAO = new TransactionDAO();
-    private CustomerDAO userDAO = new CustomerDAO();
+    private UserDAO userDAO = new UserDAO();
     
     // Kita butuh map untuk menyimpan ID kurir berdasarkan Namanya di ComboBox
     private HashMap<String, String> courierMap = new HashMap<>();

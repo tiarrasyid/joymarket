@@ -76,12 +76,36 @@ public class UserDAO {
         return db.execUpdate(query);
     }
 
-    public boolean updateProfile(Customer customer) {
-        String query = String.format(Locale.US,
-                "UPDATE `MsUser` SET `UserName`= '%s', `UserEmail`= '%s', `UserPassword`= '%s', `UserGender`='%s', `UserAddress`= '%s', `UserPhone`= '%s' WHERE  `UserID` = \"%s\"",
-                customer.getUserName(), customer.getUserEmail(), customer.getUserPassword(), customer.getUserGender(),
-                customer.getUserAddress(), customer.getUserPhone(), customer.getUserId());
+    // Ambil semua user yang role-nya COURIER
+    public ObservableList<Customer> getAllCouriers() {
+        ObservableList<Customer> couriers = FXCollections.observableArrayList();
+        String query = "SELECT * FROM MsUser WHERE UserRole = 'Courier'";
+        ResultSet rs = db.execQuery(query);
+        try {
+            while (rs != null && rs.next()) {
+                Customer c = new Customer(
+                    rs.getString("UserID"),
+                    rs.getString("UserName"),
+                    rs.getString("UserEmail"),
+                    rs.getString("UserPassword"),
+                    rs.getString("UserGender"),
+                    rs.getString("UserAddress"),
+                    rs.getString("UserPhone"),
+                    rs.getDouble("UserBalance")
+                );
+                c.setUserRole("Courier"); // Set role manual atau ambil dari DB
+                couriers.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return couriers;
+    }
 
+    // UPDATE PROFILE USER (Nama, Alamat, Telepon)
+    public boolean updateProfile(String userId, String newName, String newAddress, String newPhone) {
+        String query = String.format("UPDATE MsUser SET UserName = '%s', UserAddress = '%s', UserPhone = '%s' WHERE UserID = '%s'", 
+            newName, newAddress, newPhone, userId);
         return db.execUpdate(query);
     }
 }
