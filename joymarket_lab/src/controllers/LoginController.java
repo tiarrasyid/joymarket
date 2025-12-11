@@ -8,6 +8,8 @@ import javafx.scene.control.Control;
 import javafx.stage.Stage;
 import model.Customer;
 import model.User;
+import view.AdminMenuView;
+import view.CourierMenuView;
 import view.CustomerRegisterView;
 import view.LoginView;
 import view.MainMenuView;
@@ -59,8 +61,8 @@ public class LoginController {
         // --- ROLE BASED NAVIGATION ---
         if (user.getUserRole().equalsIgnoreCase("Admin")) {
             // Jika Admin, buka menu Admin
-            // AdminMenuView adminMenu = new AdminMenuView();
-            // adminMenu.start(stage, user);
+            AdminMenuView adminMenu = new AdminMenuView();
+            adminMenu.start(stage, user);
             
         } else if (user.getUserRole().equalsIgnoreCase("Customer")) {
             // Jika Customer, buka menu Customer
@@ -68,8 +70,8 @@ public class LoginController {
             customerMenu.start(stage, user);
             
         } else if (user.getUserRole().equalsIgnoreCase("Courier")) {
-        	// CourierMenuView courierMenu = new CourierMenuView();
-            // courierMenu.start(stage, user);
+        	CourierMenuView courierMenu = new CourierMenuView();
+            courierMenu.start(stage, user);
         }
     }
 
@@ -148,7 +150,7 @@ public class LoginController {
             return null;
         }
 
-        User existingUser = uDAO.getUser(email, password);
+        User existingUser = uDAO.getUser(email);
 
         // Logic login juga berlaku untuk Admin/Courier karena mereka ada di tabel MsUser yang sama
         // (Diasumsikan CustomerDAO.getUser() mengambil semua user dari MsUser)

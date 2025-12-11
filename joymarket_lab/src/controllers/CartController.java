@@ -46,7 +46,7 @@ public class CartController {
         for (CartItem item : cartItems) {
             grandTotal += item.getTotalPrice();
         }
-        view.getLblTotal().setText("Total: Rp " + String.format("%.0f", grandTotal));
+        view.getLblTotal().setText("Total: Rp " + String.format("%,.0f", grandTotal));
     }
 
     private void initAction() {

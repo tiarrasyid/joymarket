@@ -76,7 +76,6 @@ public class CustomerTopUpView {
         layout.add(btnBack, 1, row++);
         
         Scene scene = new Scene(layout, 450, 420);
-        new TopUpController(stage, this, user);
         stage.setScene(scene);
         stage.setTitle("Top Up Balance");
         stage.show();

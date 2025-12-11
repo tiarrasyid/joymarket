@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Locale;
+
 import DAO.UserDAO;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
@@ -53,15 +55,17 @@ public class TopUpController {
             return;
         }
 
+        amount += currentUser.getUserBalance();
+
         // Proses update ke database
         if (uDAO.updateBalance(currentUser.getUserId(), amount)) {
             // Update saldo di object local juga biar sinkron
-            currentUser.setUserBalance(currentUser.getUserBalance() + amount);
+            currentUser.setUserBalance(amount);
             
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText(null);
-            alert.setContentText("Top Up Berhasil! Saldo bertambah: " + amount);
+            alert.setContentText(String.format(Locale.US, "Top Up Berhasil! Saldo bertambah: %,.0f", amount));
             alert.showAndWait();
             
             // Kembali ke Main Menu

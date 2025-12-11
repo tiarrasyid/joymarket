@@ -35,7 +35,7 @@ public class UserDAO {
         return emails;
     }
 
-    public User getUser(String userEmail, String userPassword) {
+    public User getUser(String userEmail) {
         String query = String.format(Locale.US,
                 "SELECT * FROM `MsUser` WHERE `UserEmail` = '%s'", userEmail);
 

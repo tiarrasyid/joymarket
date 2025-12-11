@@ -13,8 +13,11 @@ CREATE TABLE MsUser (
     UserRole VARCHAR(20)
 );
 
-INSERT INTO MsUser VALUES ('CS001', 'Budi Santoso', 'budi@gmail.com', '123456', 'Male', 'Jl. Sudirman No 1', '08123456789', 1000000, 'Customer');
-INSERT INTO MsUser VALUES ('AD001', 'Admin Joy', 'admin@gmail.com', 'admin123', 'Female', 'Office Tower', '08111111111', 0, 'Admin');
+INSERT INTO MsUser
+VALUES 
+('CS001', 'Budi Santoso', 'budi@gmail.com', '123456', 'Male', 'Jl. Sudirman No 1', '08123456789', 1000000, 'Customer'), 
+('AD001', 'Admin Joy', 'admin@gmail.com', 'admin123', 'Female', 'Office Tower', '08111111111', 0, 'Admin');
+
 INSERT INTO MsUser VALUES ('CR001', 'Kurir Cepat', 'courier@gmail.com', 'courier123', 'Male', 'Warehouse', '08222222222', 0, 'Courier');
 
 CREATE TABLE MsProduct (
