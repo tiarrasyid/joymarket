@@ -25,7 +25,6 @@ public class ManageStockController {
     }
 
     private void loadData() {
-        // Ambil semua produk
         view.getTable().setItems(pDAO.getAll());
     }
 
@@ -36,7 +35,6 @@ public class ManageStockController {
             menu.start(stage, currentUser);
         });
         
-        // Listener: Kalau klik tabel, isi textfield otomatis dengan stok saat ini (Opsional, biar UX bagus)
         view.getTable().getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 view.getTxtStock().setText(String.valueOf(newVal.getProductStock()));
@@ -45,7 +43,6 @@ public class ManageStockController {
     }
 
     private void handleUpdate() {
-        // 1. Cek Produk terpilih
         Product selectedProduct = view.getTable().getSelectionModel().getSelectedItem();
         if (selectedProduct == null) {
             showAlert("Error", "Pilih produk dari tabel dulu!");
@@ -54,13 +51,11 @@ public class ManageStockController {
 
         String stockStr = view.getTxtStock().getText();
 
-        // 2. Validasi Empty
         if (stockStr.isEmpty()) {
             showAlert("Error", "Masukkan jumlah stok!");
             return;
         }
 
-        // 3. Validasi Angka (MANUAL LOOP - Tanpa Regex)
         boolean isNumeric = true;
         for (char c : stockStr.toCharArray()) {
             if (!Character.isDigit(c)) {
@@ -75,19 +70,16 @@ public class ManageStockController {
 
         int newStock = Integer.parseInt(stockStr);
 
-        // 4. Validasi Negatif (Sesuai Soal)
         if (newStock < 0) {
             showAlert("Error", "Stok tidak boleh negatif!");
             return;
         }
 
-        // 5. Update Database
         pDAO.updateProductStock(selectedProduct.getProductId(), newStock);
         
         showAlert("Success", "Stok berhasil diupdate!");
         view.getTxtStock().clear();
         
-        // Refresh Tabel
         loadData();
     }
 

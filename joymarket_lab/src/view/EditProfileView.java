@@ -18,22 +18,20 @@ public class EditProfileView {
         Label title = new Label("Edit Profile");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
-        // --- FORM FIELDS ---
         Label lblName = new Label("Full Name:");
         lblName.setStyle("-fx-text-fill: white;");
-        txtName = new TextField(user.getUserName()); // Isi data lama
+        txtName = new TextField(user.getUserName()); 
 
         Label lblPhone = new Label("Phone Number:");
         lblPhone.setStyle("-fx-text-fill: white;");
-        txtPhone = new TextField(user.getUserPhone()); // Isi data lama
+        txtPhone = new TextField(user.getUserPhone());
 
         Label lblAddress = new Label("Address:");
         lblAddress.setStyle("-fx-text-fill: white;");
-        txtAddress = new TextArea(user.getUserAddress()); // Isi data lama
+        txtAddress = new TextArea(user.getUserAddress());
         txtAddress.setPrefRowCount(3);
         txtAddress.setWrapText(true);
 
-        // --- BUTTONS ---
         btnSave = new Button("Save Changes");
         btnSave.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white;");
         btnSave.setPrefWidth(150);
@@ -42,7 +40,6 @@ public class EditProfileView {
         btnBack.setStyle("-fx-background-color: white; -fx-text-fill: #3b82f6;");
         btnBack.setPrefWidth(150);
 
-        // --- LAYOUT ---
         GridPane layout = new GridPane();
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(20));

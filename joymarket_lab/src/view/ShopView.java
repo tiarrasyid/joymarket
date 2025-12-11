@@ -21,7 +21,6 @@ public class ShopView {
         Label title = new Label("Shop Products");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
-        // --- TABLE VIEW ---
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
@@ -36,7 +35,6 @@ public class ShopView {
 
         table.getColumns().addAll(colName, colPrice, colStock);
 
-        // --- INPUT SECTION ---
         Label lblQty = new Label("Quantity:");
         lblQty.setStyle("-fx-text-fill: white;");
         
@@ -62,7 +60,6 @@ public class ShopView {
         stage.setTitle("Shop Page");
         stage.show();
 
-        // Panggil Controller
         new ShopController(stage, this, user);
     }
 

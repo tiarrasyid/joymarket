@@ -2,7 +2,7 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import view.LoginView; // Pastikan import LoginView
+import view.LoginView;
 
 public class Main extends Application {
 

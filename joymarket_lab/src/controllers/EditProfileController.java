@@ -33,13 +33,11 @@ public class EditProfileController {
         String newPhone = view.getTxtPhone().getText().trim();
         String newAddress = view.getTxtAddress().getText().trim();
 
-        // VALIDASI 1: Tidak boleh kosong [cite: 59]
         if (newName.isEmpty() || newPhone.isEmpty() || newAddress.isEmpty()) {
             showAlert("Error", "Semua kolom harus diisi!");
             return;
         }
 
-        // VALIDASI 2: Telepon harus Angka (Manual Loop - NO REGEX) [cite: 91]
         boolean isNumeric = true;
         for (char c : newPhone.toCharArray()) {
             if (!Character.isDigit(c)) {
@@ -52,22 +50,20 @@ public class EditProfileController {
             return;
         }
 
-        // VALIDASI 3: Telepon 10-13 digit [cite: 59]
         if (newPhone.length() < 10 || newPhone.length() > 13) {
             showAlert("Error", "Nomor telepon harus 10-13 digit!");
             return;
         }
 
-        // UPDATE DATABASE
+
         if (cDAO.updateProfile(currentUser.getUserId(), newName, newAddress, newPhone)) {
-            // Update Object User di Memory (biar pas balik ke menu, nama baru langsung muncul)
+
             currentUser.setUserName(newName);
             currentUser.setUserPhone(newPhone);
             currentUser.setUserAddress(newAddress);
 
             showAlert("Success", "Profile berhasil diupdate!");
             
-            // Balik ke Main Menu
             MainMenuView menu = new MainMenuView();
             menu.start(stage, currentUser);
         } else {
