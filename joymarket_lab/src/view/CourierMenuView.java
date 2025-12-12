@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.User;
-import src.view.CourierOrderView;
-import src.view.LoginView;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 
 public class CourierMenuView {
     

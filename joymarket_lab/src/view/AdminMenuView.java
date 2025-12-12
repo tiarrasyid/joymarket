@@ -8,9 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.User;
-import src.view.AssignCourierView;
-import src.view.LoginView;
-import src.view.ManageStockView;
 
 public class AdminMenuView {
     

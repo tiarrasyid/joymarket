@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.Locale;
 
-import DAO.UserDAO;
+import DAO.CustomerDAO; 
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import model.Customer;
@@ -13,7 +13,7 @@ public class TopUpController {
     private Stage stage;
     private CustomerTopUpView view;
     private Customer currentUser;
-    private UserDAO uDAO = new UserDAO();
+    private CustomerDAO cDAO = new CustomerDAO(); 
 
     public TopUpController(Stage stage, CustomerTopUpView view, Customer currentUser) {
         this.stage = stage;
@@ -29,7 +29,6 @@ public class TopUpController {
 
     private void handleTopUp() {
         String amountStr = view.getTxtAmount().getText();
-        
         // --- VALIDASI MANUAL PENGGANTI REGEX ---
         boolean isNumeric = true;
         for (char c : amountStr.toCharArray()) {
@@ -38,7 +37,6 @@ public class TopUpController {
                 break;
             }
         }
-        // ---------------------------------------
 
         // Validasi input angka
         if (amountStr.isEmpty() || !isNumeric) {
@@ -47,16 +45,14 @@ public class TopUpController {
         }
 
         double amount = Double.parseDouble(amountStr);
-
+        
         // Validasi minimal 10.000
         if (amount < 10000) {
             view.setLblError("Minimal top up Rp 10.000");;
             return;
         }
 
-        // Proses update ke database
         if (cDAO.updateUserBalance(currentUser.getUserId(), amount)) {
-            // Update saldo di object local juga biar sinkron
             currentUser.setUserBalance(currentUser.getUserBalance() + amount);
             
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

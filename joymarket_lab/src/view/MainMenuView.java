@@ -1,19 +1,14 @@
 package view;
 
-import javafx.geometry.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Customer;
 import model.User;
-import src.view.CartView;
-import src.view.CourierStatusView;
-import src.view.CustomerTopUpView;
-import src.view.EditProfileView;
-import src.view.LoginView;
-import src.view.ShopView;
 
 public class MainMenuView {
     

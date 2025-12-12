@@ -1,7 +1,7 @@
 package view;
 
-import javax.swing.table.TableColumn;
-import javax.swing.text.TableView;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
 
 import controllers.ShopController;
 import javafx.beans.property.SimpleStringProperty;
